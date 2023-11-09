@@ -9,12 +9,13 @@ import Clock from './chapter_04/Clock';
 import CommentList from './chapter_05/CommentList';
 import NotificationList from './chapter_06/NotificationList'
 import Ref from './chapter_06/ref';
+import State from './chapter_06/state';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <div>
-    <Ref/>
+    <State/>
   </div>
 )
 
