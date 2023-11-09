@@ -10,12 +10,14 @@ import CommentList from './chapter_05/CommentList';
 import NotificationList from './chapter_06/NotificationList'
 import Ref from './chapter_06/ref';
 import State from './chapter_06/state';
+import Effect from './chapter_06/effect';
+import Effect2 from './chapter_06/effect2';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <div>
-    <State/>
+    <Effect2/>
   </div>
 )
 
