@@ -8,20 +8,13 @@ import Library from './chapter_03/Library';
 import Clock from './chapter_04/Clock';
 import CommentList from './chapter_05/CommentList';
 import NotificationList from './chapter_06/NotificationList'
-import Ref from './chapter_06/ref';
-import State from './chapter_06/state';
-import Effect from './chapter_06/effect';
-import Effect2 from './chapter_06/effect2';
-import Memo from './chapter_06/memo';
-import Memo2 from './chapter_06/memo2';
-import Callback from './chapter_06/callback';
-import Callback2 from './chapter_06/callback2';
+import Accomodate from './chapter_07/Accomodate';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <div>
-    <Callback2/>
+    <Accomodate/>
   </div>
 )
 
