@@ -12,12 +12,14 @@ import Ref from './chapter_06/ref';
 import State from './chapter_06/state';
 import Effect from './chapter_06/effect';
 import Effect2 from './chapter_06/effect2';
+import Memo from './chapter_06/memo';
+import Memo2 from './chapter_06/memo2';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
   <div>
-    <Effect2/>
+    <Memo2/>
   </div>
 )
 
