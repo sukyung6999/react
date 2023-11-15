@@ -6,7 +6,7 @@ const StyledTextInput = styled.textarea`
   ${(props) => 
     props.height &&
     `height: ${props.height}px`
-  }
+  };
   padding: 16px;
   font-size: 16px;
   line-height: 20px;
