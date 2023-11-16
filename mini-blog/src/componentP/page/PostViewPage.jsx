@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { styled } from "styled-components";
+
+import data from "../../data.json";
 import Button from "../ui/Button";
-import CommentList from "../list/CommentList";
 import TextInput from "../ui/TextInput";
-import data from "../../data.json"
+import CommentList from "../list/CommentList";
 
 const Wrapper = styled.div`
   width: calc(100% - 32px);
@@ -47,48 +48,45 @@ const CommentLabel = styled.p`
   font-weight: 500;
 `
 
-function PostViewPage(props) {
-  const navigate = useNavigate("");
+function PostViewPage() {
+  const navigate = useNavigate('');
   const {postId} = useParams();
 
-  const post = data.find((item) => {
-    return item.id === parseInt(postId);
-  })
-
-  const [comment, setComment] = useState("");
+  const post = data.find(item => item.id === parseInt(postId));
+  const [comment, setComment] = useState('');
 
   return (
     <Wrapper>
       <Container>
         <Button
-          title="뒤로 가기"
+          title="뒤로가기"
           onClick={() => {
-            navigate("/");
+            navigate('/');
           }}
         />
         <PostContainer>
           <TitleText>{post.title}</TitleText>
+          <ContentText>{post.content}</ContentText>
         </PostContainer>
 
         <CommentLabel>댓글</CommentLabel>
-        <CommentList comments={post.comments}/>
+        <CommentList
+          comments={post.comments}
+        />
 
         <TextInput
-          height={40}
+          height={180}
           value={comment}
-          onChange={(event) => {
-            setComment(event.target.value);
-          }}
+          onChange={setComment}
         />
         <Button
           title="댓글 작성하기"
-          onClick={
-            () => {navigate("/")}
-          }
+          onClick={() => {
+            navigate('/')
+          }}
         />
       </Container>
-    </Wrapper>
+    </Wrapper>  
   )
-
 }
 export default PostViewPage;
