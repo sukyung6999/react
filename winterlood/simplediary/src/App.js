@@ -3,6 +3,7 @@ import './App.css'
 import DiaryEditor from "./DiaryEditor";
 import DiaryList from "./DiaryList";
 import Lifecycle from './Lifecylce';
+import OptimizeTest from './OptimizeTest';
 
 // const dummyList = [
 //   {
@@ -48,7 +49,6 @@ function App() {
   const dataId = useRef(0);
 
   const getDiaryAnalysis = useMemo(() => {
-    console.log('일기 분석 시작');
 
     const goodCount = data.filter((it) => it.emotion >= 3).length;
     const badCount = data.length - goodCount;
@@ -106,6 +106,7 @@ function App() {
 
   return (
     <div className="App">
+      <OptimizeTest/>
       <Lifecycle/>
       <DiaryEditor onCreate={onCreate} />
       <div>전체 일기 : {data.length}</div>
