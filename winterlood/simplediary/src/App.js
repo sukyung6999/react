@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect, useMemo } from 'react';
+import { useRef, useState, useEffect, useMemo, useCallback } from 'react';
 import './App.css'
 import DiaryEditor from "./DiaryEditor";
 import DiaryList from "./DiaryList";
@@ -78,7 +78,7 @@ function App() {
     getData();
   }, []);
 
-  const onCreate = (author, content, emotion) => {
+  const onCreate = useCallback((author, content, emotion) => {
     const created_date = new Date().getTime();
 
     const newItem = {
@@ -89,24 +89,21 @@ function App() {
       id: dataId.current
     }
     dataId.current += 1;
-    setData([newItem, ...data])
-  }
+    setData((data) => [newItem, ...data])
+  }, [])
 
-  const onRemove = (targetId) => {
-    console.log(`${targetId}`)
-    const newDiaryList = data.filter((it) => it.id !== targetId);
-    setData(newDiaryList);
-  }
+  const onRemove = useCallback((targetId) => {
+    setData(data => data.filter((it) => it.id !== targetId));
+  }, [])
 
-  const onEdit = (targetId, newContent) => {
+  const onEdit = useCallback((targetId, newContent) => {
     setData(
-      data.map((it) => it.id === targetId ? {...it, content: newContent} : it)
+      data => data.map((it) => it.id === targetId ? {...it, content: newContent} : it)
     )
-  }
+  }, [])
 
   return (
     <div className="App">
-      <OptimizeTest/>
       <Lifecycle/>
       <DiaryEditor onCreate={onCreate} />
       <div>전체 일기 : {data.length}</div>
