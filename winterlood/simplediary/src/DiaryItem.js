@@ -10,7 +10,7 @@ function DiaryItem({
   id}) {
 
   useEffect(() => {
-    console.log(`${id}번째 아이템 렌더`)
+    // console.log(`${id}번째 아이템 렌더`)
   })
 
   const [isEdit, setIsEdit] = useState(false);
