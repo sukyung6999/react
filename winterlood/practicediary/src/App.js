@@ -1,54 +1,49 @@
-import { useEffect, useRef, useState } from 'react';
 import './App.css';
 import DiaryEditor from './DiaryEditor';
-import LifeCycle from './LifeCycle';
 import DiaryList from './DiaryList';
 
  function App() {
-  const [data, setData] = useState([]);
-  const diaryId = useRef(0);
-  
-  const getData = async () => {
-    const comments = await fetch('https://jsonplaceholder.typicode.com/comments')
-    .then((response) => response.json())
-
-    const initData = comments.slice(0, 20).map((item) => {
-      return {
-        id: diaryId.current++,
-        author: item.email,
-        content: item.body,
-        emotion: Math.floor(Math.random() * 5) + 1
-      }
-    });
-    setData(initData);
-  };
-
-  const onCreate = (author, content, emotion) => {
-    const created_date = new Date().getTime();
-
-    const newItem = {
-      id: diaryId.current,
-      created_date,
-      author,
-      content,
-      emotion
-    }
-    setData((data) => [newItem, ...data])
-  }
-
-  useEffect(() => {
-    getData();
-  },[])
-
+  const dummyList = [
+  {
+    id: 1,
+    author: '이수경',
+    content: '하이 에브리원1',
+    emotion: 5,
+    created_date: new Date().getTime()
+  },
+  {
+    id: 2,
+    author: '수정',
+    content: '하이 에브리원2',
+    emotion: 3,
+    created_date: new Date().getTime()
+  },
+  {
+    id: 3,
+    author: '예삐',
+    content: '하이 에브리원3',
+    emotion: 2,
+    created_date: new Date().getTime()
+  },
+  {
+    id: 4,
+    author: '뽀삐',
+    content: '하이 에브리원4',
+    emotion: 4,
+    created_date: new Date().getTime()
+  },
+  {
+    id: 5,
+    author: '수길',
+    content: '하이 에브리원5',
+    emotion: 5,
+    created_date: new Date().getTime()
+  },
+]
   return (
     <div className="App">
-      <LifeCycle/>
-      <DiaryEditor onCreate={onCreate} diaryId={diaryId} />
-      <div>전체일기: </div>
-      <div>기분 좋은 일기 개수 : </div>
-      <div>기분 나쁜 일기 개수 : </div>
-      <div>기분 좋은 일기 비율 : </div>
-      <DiaryList data={data} />
+      <DiaryEditor />
+      <DiaryList data={dummyList}/>
     </div>
   );
 }

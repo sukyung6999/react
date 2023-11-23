@@ -1,9 +1,6 @@
 import {useRef, useState} from 'react';
 
-function DiaryEditor({
-  onCreate,
-  diaryId
-}) {
+function DiaryEditor() {
   const [obj, setObj] = useState({
     author: '',
     content: '',
@@ -12,42 +9,36 @@ function DiaryEditor({
   const authorInput = useRef();
   const contentInput = useRef();
 
-  const handleEvent = (e) => {
+  const handleChange = (e) => {
     setObj({
-      ...obj,
+      ...obj, 
       [e.target.name]: e.target.value
     })
   }
-  
+
   const handleSubmit = () => {
     if (obj.author.length < 3) {
       authorInput.current.focus();
-      return
+      return;
     }
-    if (obj.content.length < 5) {
+    if (obj.content.length <= 5) {
       contentInput.current.focus();
-      return
+      return;
     }
-    onCreate(obj.author, obj.content, obj.emotion);
-    setObj({
-      author: '',
-      content: '',
-      emotion: 1
-    })
   }
 
   return (
-    <div className='DiaryEditor'>
+    <div className="DiaryEditor">
       <h2>오늘의 일기</h2>
       <div>
-        <input ref={authorInput} name="author" type="text" value={obj.author} onChange={handleEvent} />
+        <input ref={authorInput} type="text" name="author" value={obj.author} onChange={handleChange} />
       </div>
       <div>
-        <textarea ref={contentInput} name="content" value={obj.content} onChange={handleEvent}></textarea>
+        <textarea ref={contentInput} name="content" id="" cols="30" rows="10" value={obj.content} onChange={handleChange}></textarea>
       </div>
       <div>
-        <label htmlFor="">오늘의 감정점수 :</label>
-        <select name="emotion" id="" value={obj.emotion} onChange={handleEvent}>
+        <label htmlFor="">오늘의 감정점수 : </label>
+        <select name="emotion" id="" onChange={handleChange}>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
