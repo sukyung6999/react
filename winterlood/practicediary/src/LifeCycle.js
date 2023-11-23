@@ -1,4 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+function MountCmt () {
+  useEffect(() => {
+    console.log('mount')
+
+    return () => console.log('unmount')
+  })
+  return <p>Unmount Testing Component</p>
+}
 
 function LifeCycle() {
   const [state, setState] = useState(false);
@@ -7,7 +16,7 @@ function LifeCycle() {
   return (
     <div style={{padding: 20}}>
       <button onClick={() => toggle()}>ON/OFF</button>
-      {state && <p>Unmount Testing Component</p>}
+      {state && <MountCmt/>}
     </div>
   )
 }
