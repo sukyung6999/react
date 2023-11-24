@@ -46,7 +46,7 @@ function DiaryEditor({
       </div>
       <div>
         <label htmlFor="">오늘의 감정점수 : </label>
-        <select name="emotion" id="" onChange={handleChange}>
+        <select name="emotion" id="" value={obj.emotion} onChange={handleChange}>
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3">3</option>
