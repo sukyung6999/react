@@ -1,49 +1,48 @@
+import { useEffect, useRef, useState } from 'react';
 import './App.css';
 import DiaryEditor from './DiaryEditor';
 import DiaryList from './DiaryList';
+import LifeCycle from './LifeCycle';
 
  function App() {
-  const dummyList = [
-  {
-    id: 1,
-    author: '이수경',
-    content: '하이 에브리원1',
-    emotion: 5,
-    created_date: new Date().getTime()
-  },
-  {
-    id: 2,
-    author: '수정',
-    content: '하이 에브리원2',
-    emotion: 3,
-    created_date: new Date().getTime()
-  },
-  {
-    id: 3,
-    author: '예삐',
-    content: '하이 에브리원3',
-    emotion: 2,
-    created_date: new Date().getTime()
-  },
-  {
-    id: 4,
-    author: '뽀삐',
-    content: '하이 에브리원4',
-    emotion: 4,
-    created_date: new Date().getTime()
-  },
-  {
-    id: 5,
-    author: '수길',
-    content: '하이 에브리원5',
-    emotion: 5,
-    created_date: new Date().getTime()
-  },
-]
+  const getData = async () => {
+    const comments = await fetch('https://jsonplaceholder.typicode.com/comments').then((response) => response.json())
+
+    comments.slice(0,20).map((item) =>{
+      onCreate(item.email, item.body, Math.floor(Math.random() * 5) + 1)
+    })
+  }
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const [data, setData] = useState([]);
+  const dataId = useRef(0);
+
+  const onRemove = (dataId) => {
+    const newList = data.filter((item) => item.id !== dataId);
+    setData(newList);
+  }
+
+  const onCreate = (author, content, emotion) => {
+    const created_date = new Date().getTime();
+
+    const newItem = {
+      id: dataId.current++,
+      created_date,
+      author,
+      content,
+      emotion
+    }
+
+    setData((data) => [newItem, ...data]);
+  }
   return (
     <div className="App">
-      <DiaryEditor />
-      <DiaryList data={dummyList}/>
+      <LifeCycle/>
+      <DiaryEditor onCreate={onCreate} />
+      <DiaryList data={data} onRemove={onRemove}/>
     </div>
   );
 }
