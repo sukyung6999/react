@@ -39,16 +39,15 @@ import LifeCycle from './LifeCycle';
 
   const {countGood, countBad, percentGood} = calculateResults; 
   
-  const onEdit = (prevContentId, newContent) => {
-    setData((data) => data.map((item) => item.id === prevContentId ? {...item, content: newContent} : item.content))
-  }
+  const onEdit = useCallback((prevContentId, newContent) => {
+    setData((data) => data.map((item) => item.id === prevContentId ? {...item, content: newContent} : item))
+  }, [])
 
-  const onRemove = (dataId) => {
-    const newList = data.filter((item) => item.id !== dataId);
-    setData(newList);
-  }
+  const onRemove = useCallback((dataId) => {
+    setData((data)=> data.filter((item) => item.id !== dataId));
+  }, [])
 
-  const onCreate = (author, content, emotion) => {
+  const onCreate = useCallback((author, content, emotion) => {
     const created_date = new Date().getTime();
 
     const newItem = {
@@ -60,7 +59,7 @@ import LifeCycle from './LifeCycle';
     }
 
     setData((data) => [newItem, ...data]);
-  }
+  }, [])
   return (
     <div className="App">
       <LifeCycle/>
