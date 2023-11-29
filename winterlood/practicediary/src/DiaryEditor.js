@@ -1,8 +1,12 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 function DiaryEditor({
   onCreate
 }) {
+
+  useEffect(()=> {
+    console.log('create 렌더링')
+  })
   const [obj, setObj] = useState({
     author: '',
     content: '',
@@ -32,7 +36,7 @@ function DiaryEditor({
 
     onCreate(obj.author, obj.content, obj.emotion);
 
-    window.confirm('성공');
+    window.alert('성공');
 
     setObj({
       author: '',
@@ -64,4 +68,4 @@ function DiaryEditor({
     </div>
   )
 }
-export default DiaryEditor;
+export default React.memo(DiaryEditor);

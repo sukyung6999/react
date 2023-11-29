@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 function DiaryItem({
   onEdit,
@@ -9,6 +9,11 @@ function DiaryItem({
   emotion,
   created_date
 }) {
+
+  useEffect(() => {
+    console.log(`${id}번째 렌더링`);
+  })
+
   const [isEdit, setIsEdit] = useState(false);
   const toggle = () => {setIsEdit(!isEdit)};
 
@@ -29,9 +34,10 @@ function DiaryItem({
 
     toggle();
     
-    window.confirm(`${id + 1}번째 일기를 수정하시겠습니까?`);
+    if (window.confirm(`${id + 1}번째 일기를 수정하시겠습니까?`)) {
+      onEdit(id, newContent);
+    }
 
-    onEdit(id, newContent);
   }
 
   const handleRemove = () => {
@@ -68,4 +74,4 @@ function DiaryItem({
     </div>
   )
 }
-export default DiaryItem;
+export default React.memo(DiaryItem);

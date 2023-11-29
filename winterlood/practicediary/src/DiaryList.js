@@ -15,4 +15,4 @@ function DiaryList({
     </div>
   )
 }
-export default DiaryList;
+export default React.memo(DiaryList);

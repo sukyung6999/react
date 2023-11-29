@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import './App.css';
 import DiaryEditor from './DiaryEditor';
 import LifeCycle from './LifeCycle';
@@ -40,7 +40,7 @@ import DiaryList from './DiaryList';
 
   const {goodCount, badCount, goodRatio} = analyzeData;
 
-  const onCreate = (author, content, emotion) => {
+  const onCreate = useCallback((author, content, emotion) => {
     const newItem = {
       id: diaryId.current++,
       author,
@@ -48,16 +48,16 @@ import DiaryList from './DiaryList';
       created_date: new Date().getTime(),
       content,
     }
-    setData([newItem, ...data]);
-  }
-  const onRemove = (targetId) => {
-    const newList = data.filter((item) => item.id !== targetId);
-    setData(newList);
-  }
-  const onEdit = (targetId, newContent) => {
-    const newList = data.map((item) => item.id === targetId ? {...item, content: newContent} : item);
-    setData(newList);
-  }
+    setData(data => [newItem, ...data]);
+  }, []);
+
+  const onRemove = useCallback((targetId) => {
+    setData(data => data.filter((item) => item.id !== targetId));
+  }, []);
+  
+  const onEdit = useCallback((targetId, newContent) => {
+    setData(data => data.map((item) => item.id === targetId ? {...item, content: newContent} : item));
+  }, [])
   
   return (
     <div className="App">
