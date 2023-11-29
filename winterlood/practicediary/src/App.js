@@ -1,10 +1,12 @@
-import React, { useCallback, useEffect, useMemo, useReducer, useRef, createContext } from 'react';
+import React, { useCallback, useEffect, useMemo, useReducer, useRef } from 'react';
 import './App.css';
 import DiaryEditor from './DiaryEditor';
 import LifeCycle from './LifeCycle';
 import DiaryList from './DiaryList';
 
-export const DiaryDispatchContext = React.createContext();
+export const DiaryStateContext = React.createContext();
+
+export const DiaryDispatchesContext = React.createContext();
 
 const reducer = (state, action) => {
   switch (action.type) {
@@ -79,20 +81,26 @@ const reducer = (state, action) => {
   const onEdit = useCallback((targetId, newContent) => {
     // setData(data => data.map((item) => item.id === targetId ? {...item, content: newContent} : item));
     dispatch({type: 'EDIT', targetId, newContent})
-  }, [])
+  }, []);
+
+  const memoizedDispatches = useMemo(() => {
+    return {onCreate, onRemove, onEdit}
+  })
   
   return (
-    <div className="App">
-      <DiaryDispatchContext.Provider value={data}>
-        <LifeCycle/>
-        <DiaryEditor onCreate={onCreate}/>
-        <div>전체 일기 : {data.length}</div>
-        <div>기분 좋은 일기 개수 : {goodCount}</div>
-        <div>기분 나쁜 일기 개수 : {badCount}</div>
-        <div>기분 좋은 일기 비율 : {goodRatio}</div>
-        <DiaryList data={data} onRemove={onRemove} onEdit={onEdit}/>
-      </DiaryDispatchContext.Provider>
-    </div>
+    <DiaryStateContext.Provider value={data}>
+      <DiaryDispatchesContext.Provider value={memoizedDispatches}>
+        <div className="App">
+            <LifeCycle/>
+            <DiaryEditor onCreate={onCreate}/>
+            <div>전체 일기 : {data.length}</div>
+            <div>기분 좋은 일기 개수 : {goodCount}</div>
+            <div>기분 나쁜 일기 개수 : {badCount}</div>
+            <div>기분 좋은 일기 비율 : {goodRatio}</div>
+            <DiaryList data={data} onRemove={onRemove} onEdit={onEdit}/>
+        </div>
+      </DiaryDispatchesContext.Provider>
+    </DiaryStateContext.Provider>
   );
 }
 
