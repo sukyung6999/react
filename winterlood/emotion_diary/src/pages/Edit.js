@@ -12,8 +12,8 @@ function Edit() {
   const [originData, setOriginData] = useState();
 
   useEffect(() => {
-    if (diaryList.length > 1) {
-      const targetDiary = diaryList.find((item) => item.id === parseInt(id));
+    if (diaryList.length >= 1) {
+      const targetDiary = diaryList.find((item) => parseInt(item.id) === parseInt(id));
       console.log(targetDiary);
 
       if (targetDiary) {
