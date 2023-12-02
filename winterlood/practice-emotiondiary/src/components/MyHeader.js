@@ -1,10 +1,10 @@
 import MyButton from "./MyButton";
 
-function MyHeader({leftButton, headText, rightButton}) {
+function MyHeader({leftChild, headText, rightChild}) {
   return <header>
-    <MyButton text={leftButton.text} type={leftButton.type} />
+    {leftChild}
     <h2 className="head_text">{headText}</h2>
-    <MyButton text={rightButton.text} type={rightButton.type} />
+    {rightChild}
   </header>
 }
 export default MyHeader;
