@@ -10,7 +10,7 @@ const dateOptionList = [
 const emotionOptionList = [
   {type: 'all', name: '전부다'},
   {type: 'good', name: '좋은 감정 순'},
-  {type: 'bad', name: '좋은 나쁜 순'},
+  {type: 'bad', name: '나쁜 감정 순'},
 ]
 
 function ControlMenu({value, onChange, optionList}) {

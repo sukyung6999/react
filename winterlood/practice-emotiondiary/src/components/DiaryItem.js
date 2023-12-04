@@ -11,7 +11,7 @@ function DiaryItem({
   const navigate = useNavigate();
 
   const toDetail = () => {
-    navigate(`/detail/${id}`)
+    navigate(`/diary/${id}`)
   }
 
   return (
