@@ -29,14 +29,10 @@ function DiaryEditor ({originData, isEdit}) {
       contentRef.current.focus();
     }
 
-    if (window.confirm(isEdit ? '일기를 수정하겠습니까?' : '일기를 작성완료하시겠습니까'))
+    window.confirm(isEdit ? '일기를 수정하겠습니까?' : '일기를 작성완료하시겠습니까')
 
     if (!isEdit) {
-      onCreate({
-        date,
-        emotion,
-        content
-      });
+      onCreate(date,emotion,content);
     } else {
       onEdit(originData.id, date, content, emotion)
     }

@@ -24,7 +24,7 @@ const reducer = (state, action) => {
     default:
       return state;
   }
-  return newState
+  return newState;
 }
 
 export const DiaryStateContext = React.createContext();
@@ -77,7 +77,7 @@ function App() {
   const dataId = useRef(0);
 
   // CREATE
-  const onCreate = (date, content, emotion) => {
+  const onCreate = (date, emotion, content) => {
     dispatch({
       type: 'CREATE', 
       data: {
@@ -85,7 +85,7 @@ function App() {
         date: new Date(date).getTime(),
         content,
         emotion
-    }})
+    }});
   }
 
   // REMOVE
