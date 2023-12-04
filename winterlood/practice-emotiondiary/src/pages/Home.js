@@ -12,7 +12,7 @@ function Home() {
 
   useEffect(() => {
     const startDate = new Date(curDate.getFullYear(), curDate.getMonth(), 1);
-    const lastDate = new Date(curDate.getFullYear(), curDate.getMonth() + 1, 0);
+    const lastDate = new Date(curDate.getFullYear(), curDate.getMonth() + 1, 0, 23, 59, 59);
 
     const processedList = diaryList.filter((item) => startDate <= item.date && item.date <= lastDate);
     setData(processedList);

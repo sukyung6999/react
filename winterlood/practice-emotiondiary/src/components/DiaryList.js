@@ -30,14 +30,15 @@ function DiaryList({diaryList}) {
 
   const compare = (item) => {
     if (emotionFilter === 'good') {
-      return item.emotion < 3;
+      return item.emotion <= 3;
     } else {
-      return item.emotion >= 3;
+      return item.emotion > 3;
     }
   }
 
-  diaryList.sort((a, b) => dateFilter === 'latest' ? b.date - a.date : a.date - b.date);
-  const filteredList = diaryList.filter((item) => emotionFilter === 'all' ? item : compare(item));
+  const copyList = JSON.parse(JSON.stringify(diaryList));
+  const filteredList = copyList.filter((item) => emotionFilter === 'all' ? item : compare(item));
+  filteredList.sort((a, b) => dateFilter === 'latest' ? b.date - a.date : a.date - b.date);
 
   return <div className='DiaryList' >
     <div className="menu_wrapper">

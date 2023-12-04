@@ -20,9 +20,12 @@ function DiaryEditor({isEdit, targetId}) {
   const [isSelected, setIsSelected] = useState(3);
 
   const handleSubmit = () => {
-    alert('새로운 일기를 작성하시겠습니까?');
-    const emotion = isSelected;
-    onCreate(date, content, emotion);
+    window.confirm(isEdit ? '일기를 수정하시겠습니까?' : '일기를 생성하시겠습니까?');
+    
+    if (isEdit) {
+      onEdit(targetId, content, isSelected, date);
+    }
+    onCreate(date, content, isSelected);
 
 
     navigate('/', {replace: true})
@@ -52,7 +55,7 @@ function DiaryEditor({isEdit, targetId}) {
             emotionList.map((item) => <div 
               key={item.emotion_id}
               onClick={() => setIsSelected(item.emotion_id)} 
-              className={["EmotionItem", isSelected === item.emotion_id ? `EmotionItem_on_${item.emotion_id}` : 'EmotionItem_off' ].join(" ")} >
+              className={["EmotionItem", isSelected === item.emotion_id ? `EmotionItem_on_${isSelected}` : 'EmotionItem_off' ].join(" ")} >
               <img src={item.emotion_img} alt="" />
               <span>{item.emotion_description}</span>
             </div> )
