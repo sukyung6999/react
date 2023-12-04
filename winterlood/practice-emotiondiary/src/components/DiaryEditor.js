@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import {DiaryDispatchesContext, DiaryStateContext} from '../App';
@@ -8,33 +8,34 @@ import MyButton from "./MyButton";
 const emotionList = [
   {
     emotion_id: 1,
-    emotion_img: process.env.PUBLIC_URL + `assets/emotion1.png`,
+    emotion_img: process.env.PUBLIC_URL + `/assets/emotion1.png`,
     emotion_description: '완전 좋음'
   },
   {
     emotion_id: 2,
-    emotion_img: process.env.PUBLIC_URL + `assets/emotion2.png`,
+    emotion_img: process.env.PUBLIC_URL + `/assets/emotion2.png`,
     emotion_description: '좋음'
   },
   {
     emotion_id: 3,
-    emotion_img: process.env.PUBLIC_URL + `assets/emotion3.png`,
+    emotion_img: process.env.PUBLIC_URL + `/assets/emotion3.png`,
     emotion_description: '그럭저럭'
   },
   {
     emotion_id: 4,
-    emotion_img: process.env.PUBLIC_URL + `assets/emotion4.png`,
+    emotion_img: process.env.PUBLIC_URL + `/assets/emotion4.png`,
     emotion_description: '나쁨'
   },
   {
     emotion_id: 5,
-    emotion_img: process.env.PUBLIC_URL + `assets/emotion5.png`,
+    emotion_img: process.env.PUBLIC_URL + `/assets/emotion5.png`,
     emotion_description: '완전 좋음'
   },
 ]
 
-function DiaryEditor() {
+function DiaryEditor({isEdit, targetId}) {
 
+  const diaryList = useContext(DiaryStateContext);
   const {onCreate, onEdit} = useContext(DiaryDispatchesContext);
 
   const navigate = useNavigate();
@@ -52,6 +53,16 @@ function DiaryEditor() {
 
     navigate('/', {replace: true})
   }
+
+  useEffect(() => {
+    if (isEdit) {
+      const targetDiary = diaryList.find((item) => item.id === parseInt(targetId));
+
+      setDate(targetDiary.date);
+      setIsSelected(targetDiary.emotion);
+      setContent(targetDiary.content);
+    }
+  }, []);
 
   return (
     <div className="DiaryEditor">

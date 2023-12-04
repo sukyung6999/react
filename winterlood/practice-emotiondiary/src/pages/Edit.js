@@ -1,23 +1,24 @@
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+
+import MyHeader from "../components/MyHeader";
+import MyButton from "../components/MyButton";
+import DiaryEditor from "../components/DiaryEditor";
 
 function Edit() {
-  const [searchParams, setSearchParams] = useSearchParams();
 
-  const id = searchParams.get('id');
-  console.log(id);
-
-  const mode = searchParams.get('mode');
-  console.log(mode);
-  
   const navigate = useNavigate();
+
+  const {id} = useParams();
 
   return (
     <div>
-      <h2>Edit</h2>
-      <p>이곳은 일기장 수정 페이지입니다.</p>
-      <button onClick={() => setSearchParams({who: 'sukyung', mode: 'white'})}>QS바꾸기</button>
-      <button onClick={() => {navigate('/')}}>HOME으로 가기</button>
-      <button onClick={() => {navigate(-1)}}>뒤로 가기</button>
+      <MyHeader 
+        leftChild={
+          <MyButton text={'< 뒤로가기'} onClick={() => navigate(-1)}/>
+        }
+        headText={'일기 수정하기'}
+      />
+      <DiaryEditor isEdit={true} targetId={id} />
     </div>
   )
 }
