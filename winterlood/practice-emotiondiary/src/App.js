@@ -73,14 +73,14 @@ function App() {
   const [data, dispatch] = useReducer(reducer, dummyData);
   const dataId = useRef(0);
 
-  const onCreate = (content, emotion, date) => {
+  const onCreate = (date, content, emotion) => {
     dispatch({
       type: 'CREATE',
       data: {
-      id: dataId.current++,
-      date: new Date(date).getTime(),
-      content,
-      emotion
+        id: dataId.current++,
+        date: new Date(date).getTime(),
+        content,
+        emotion
     }
   })
   }

@@ -46,7 +46,7 @@ function DiaryEditor ({originData, isEdit}) {
       setEmotion(originData.emotion);
       setContent(originData.content);
     }
-  }, [isEdit, originData])
+  }, [isEdit, originData]);
 
   return (
     <div className='DiaryEditor'>

@@ -1,8 +1,20 @@
+import {useNavigate} from 'react-router-dom';
+
+import MyButton from '../components/MyButton';
+import MyHeader from '../components/MyHeader';
+import DiaryEditor from '../components/DiaryEditor';
+
 function New() {
+
+  const navigate = useNavigate();
+
   return (
     <>
-      <h2>New</h2>
-      <p>이곳은 일기장 생성 페이지입니다.</p>
+      <MyHeader
+        leftChild={<MyButton text={'< 뒤로가기'} onClick={() => navigate(-1)}/>}
+        headText={'새 일기 쓰기'}
+      />
+      <DiaryEditor/>
     </>
   )
 }

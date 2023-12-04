@@ -24,7 +24,7 @@ function DiaryItem({
       </div>
       <div className="info_wrapper" onClick={toDetail}>
         <div className="diary_date">{new Date(date).toLocaleString()}</div>
-        <div className="diary_content_preview">{content.slice(0,25)}</div>
+        <div className="diary_content_preview">{content.slice(0, 25)}</div>
       </div>
       <div className="btn_wrapper">
         <MyButton text={'수정하기'} onClick={() => navigate(`/edit/${id}`)} />

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import DiaryItem from "./DiaryItem";
 import MyButton from "./MyButton";
 import { useNavigate } from "react-router-dom";
