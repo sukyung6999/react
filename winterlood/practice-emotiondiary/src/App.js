@@ -55,10 +55,10 @@ const reducer = (state, action) => {
       newState = [action.data, ...state];
       break;
     case 'REMOVE': 
-      newState = state.filter((item) => item.id !== action.targetId);
+      newState = state.filter((item) => parseInt(item.id) !== parseInt(action.targetId));
       break;
     case 'EDIT':
-      newState = state.map((item) => item.id === action.targetId ? {...action.data} : item);
+        newState = state.map((item) => parseInt(item.id) === parseInt(action.data.id) ? {...action.data} : item);
       break;
     default:
       return state;

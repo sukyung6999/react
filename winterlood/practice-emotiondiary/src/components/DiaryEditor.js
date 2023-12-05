@@ -24,17 +24,18 @@ function DiaryEditor({isEdit, targetId}) {
     
     if (isEdit) {
       onEdit(targetId, content, isSelected, date);
+    } else {
+      onCreate(date, content, isSelected);
     }
-    onCreate(date, content, isSelected);
-
 
     navigate('/', {replace: true})
   }
 
   useEffect(() => {
     if (isEdit) {
-      const targetDiary = diaryList.find((item) => item.id === parseInt(targetId));
+      const targetDiary = diaryList.find((item) => parseInt(item.id) === parseInt(targetId));
 
+      console.log(targetDiary);
       setDate(targetDiary.date);
       setIsSelected(targetDiary.emotion);
       setContent(targetDiary.content);
