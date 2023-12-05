@@ -13,7 +13,7 @@ function Diary() {
   const {id} = useParams();
 
   const diaryList = useContext(DiaryStateContext);
-  const targetDiary = diaryList.find((item) => item.id === parseInt(id));
+  const targetDiary = diaryList.find((item) => parseInt(item.id) === parseInt(id));
 
   const emotion = emotionList[targetDiary.emotion - 1];
 

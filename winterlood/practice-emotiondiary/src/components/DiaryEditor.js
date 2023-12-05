@@ -6,6 +6,7 @@ import { getDateString } from "../util/getDateString";
 import MyButton from "./MyButton";
 
 import { emotionList } from "../util/emotionList";
+import EmotionItem from "./EmotionItem";
 
 function DiaryEditor({isEdit, targetId}) {
 
@@ -53,13 +54,7 @@ function DiaryEditor({isEdit, targetId}) {
         <h4>오늘의 감정</h4>
         <div className="emotion_list_wrapper">
           {
-            emotionList.map((item) => <div 
-              key={item.emotion_id}
-              onClick={() => setIsSelected(item.emotion_id)} 
-              className={["EmotionItem", isSelected === item.emotion_id ? `EmotionItem_on_${isSelected}` : 'EmotionItem_off' ].join(" ")} >
-              <img src={item.emotion_img} alt="" />
-              <span>{item.emotion_description}</span>
-            </div> )
+            emotionList.map((item, idx) => <EmotionItem key={idx} onClick={setIsSelected} emotion={isSelected} {...item} /> )
           }
         </div>
       </section>
