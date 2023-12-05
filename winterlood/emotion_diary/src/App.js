@@ -1,5 +1,5 @@
 import './App.css';
-import React , {useReducer, useRef} from 'react';
+import React , {useReducer, useRef, useEffect} from 'react';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 
 import Home from './pages/Home';
@@ -24,6 +24,7 @@ const reducer = (state, action) => {
     default:
       return state;
   }
+  localStorage.setItem('diary', JSON.stringify(newState));
   return newState;
 }
 
@@ -31,54 +32,35 @@ export const DiaryStateContext = React.createContext();
 
 export const DiaryDispatchesContext = React.createContext();
 
-const dummyData = [
-  {
-    id: 1,
-    emotion: 1,
-    content: '오늘의 일기 1번',
-    date: 1701421107061
-  },
-  {
-    id: 2,
-    emotion: 2,
-    content: '오늘의 일기 2번',
-    date: 1701421107062
-  },
-  {
-    id: 3,
-    emotion: 3,
-    content: '오늘의 일기 3번',
-    date: 1701421107063
-  },
-  {
-    id: 4,
-    emotion: 4,
-    content: '오늘의 일기 4번',
-    date: 1701421107064
-  },
-  {
-    id: 5,
-    emotion: 5,
-    content: '오늘의 일기 5번',
-    date: 1701421107065
-  },
-  {
-    id: 6,
-    emotion: 2,
-    content: '오늘의 일기 6번',
-    date: 1801421107065
-  },
-]
-
 function App() {
 
-  const [data, dispatch] = useReducer(reducer, dummyData);
+  useEffect(() => {
+    // localStorage.setItem('item1', 10);
+    // localStorage.setItem('item2', '20');
+    // localStorage.setItem('item3', JSON.stringify({value: 30}));
 
-  const dataId = useRef(6);
+    // const item1 = localStorage.getItem('item1');
+    // const item2 = localStorage.getItem('item2');
+    // const item3 = localStorage.getItem('item3');
+
+    // console.log([item1, JSON.parse(item2), JSON.parse(item3)]);
+
+    const localData = localStorage.getItem('diary');
+
+    if (localData) {
+      const diaryList = JSON.parse(localData).sort((a,b) => parseInt(b.id) - parseInt(a.id));
+      dataId.current = parseInt(diaryList[0].id) + 1;
+
+      dispatch({type: 'INIT', data: diaryList})
+    }
+  }, [])
+
+  const [data, dispatch] = useReducer(reducer, []);
+
+  const dataId = useRef(0);
 
   // CREATE
   const onCreate = (date, emotion, content) => {
-    console.log(dataId.current);
     dispatch({
       type: 'CREATE', 
       data: {
@@ -91,7 +73,7 @@ function App() {
 
   // REMOVE
   const onRemove = (targetId) => {
-    dispatch({type: 'REMOVE',targetId})
+    dispatch({type: 'REMOVE', targetId});
   }
 
   // EDIT

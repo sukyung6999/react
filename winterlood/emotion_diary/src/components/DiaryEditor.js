@@ -12,7 +12,7 @@ import { emotionList } from '../util/emotion';
 function DiaryEditor ({originData, isEdit}) {
   const navigate = useNavigate();
 
-  const {onCreate, onEdit} = useContext(DiaryDispatchesContext);
+  const {onCreate, onEdit, onRemove} = useContext(DiaryDispatchesContext);
 
   const [date, setDate] = useState(getStringDate(new Date()));
   const [emotion, setEmotion] = useState(3);
@@ -29,15 +29,24 @@ function DiaryEditor ({originData, isEdit}) {
       contentRef.current.focus();
     }
 
-    window.confirm(isEdit ? '일기를 수정하겠습니까?' : '일기를 작성완료하시겠습니까')
-
-    if (!isEdit) {
-      onCreate(date,emotion,content);
-    } else {
-      onEdit(originData.id, date, content, emotion)
+    if (window.confirm(isEdit ? '일기를 수정하겠습니까?' : '일기를 작성완료하시겠습니까')) {
+      if (!isEdit) {
+        onCreate(date,emotion,content);
+      } else {
+        onEdit(originData.id, date, content, emotion)
+      }
+  
+      navigate('/', {replace: true})
     }
 
-    navigate('/', {replace: true})
+  }
+
+
+  const handleRemove = () => {
+    if(window.confirm('정말 삭제하시겠습니까?')) {
+      onRemove(originData.id);
+      navigate('/', {replace: true})
+    }
   }
 
   useEffect(() => {
@@ -51,8 +60,12 @@ function DiaryEditor ({originData, isEdit}) {
   return (
     <div className='DiaryEditor'>
       <MyHeader 
-      headText={isEdit ? '일기 수정하기' : '새 일기 쓰기'} 
-      leftChild={<MyButton text={'< 뒤로가기'} onClick={() => navigate(-1)} />}/>
+        leftChild={<MyButton text={'< 뒤로가기'} onClick={() => navigate(-1)} />}
+        headText={isEdit ? '일기 수정하기' : '새 일기 쓰기'} 
+        rightChild={
+          isEdit && <MyButton text={'삭제하기'} type={'negative'} onClick={handleRemove} />
+        }   
+      />
       <div>
         <section>
           <h4>오늘은 언제인가요?</h4>
