@@ -13,14 +13,14 @@ const filterOptionList = [
   {value: 'good', name: '좋은 감정만'},
   {value: 'bad', name: '나쁜 감정만'},
 ]
-
-function ControlMenu ({value, onChange, optionList}) {
+const ControlMenu = React.memo(({value, onChange, optionList}) => {
   return <select className="ControlMenu" value={value} onChange={(e) => onChange(e.target.value)}>
     {
       optionList.map((item,idx) => <option value={item.value} key={idx}>{item.name}</option>)
     }
   </select>
-}
+})
+
 
 function DiaryList ({diaryList}) {
   const navigate = useNavigate();

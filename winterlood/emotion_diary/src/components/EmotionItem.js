@@ -1,3 +1,4 @@
+import React from "react";
 function EmotionItem({
   onClick,
   isSelected,
@@ -12,4 +13,4 @@ function EmotionItem({
     <span>{emotion_descript}</span>
   </div>
 }
-export default EmotionItem;
+export default React.memo(EmotionItem);
