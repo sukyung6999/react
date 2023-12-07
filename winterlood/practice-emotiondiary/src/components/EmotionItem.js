@@ -2,7 +2,7 @@ import React from "react";
 
 function EmotionItem({
   onClick,
-  emotion,
+  isSelected,
   emotion_id,
   emotion_img,
   emotion_description
@@ -10,8 +10,8 @@ function EmotionItem({
   return (
     <div 
       key={emotion_id}
-      onClick={() => onClick(emotion_id)} 
-      className={["EmotionItem", emotion === emotion_id ? `EmotionItem_on_${emotion}` : 'EmotionItem_off' ].join(" ")} >
+      onClick={() => onClick(emotion_id)}
+      className={["EmotionItem", isSelected ? `EmotionItem_on_${emotion_id}` : 'EmotionItem_off' ].join(" ")} >
       <img src={emotion_img} alt="" />
       <span>{emotion_description}</span>
     </div>

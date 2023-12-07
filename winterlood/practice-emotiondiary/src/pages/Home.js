@@ -11,11 +11,18 @@ function Home() {
   const [data, setData] = useState(diaryList);
 
   useEffect(() => {
-    const startDate = new Date(curDate.getFullYear(), curDate.getMonth(), 1);
-    const lastDate = new Date(curDate.getFullYear(), curDate.getMonth() + 1, 0, 23, 59, 59);
+    const title = document.getElementsByTagName('title')[0];
+    title.innerHTML = `감정 일기장`;
+  })
 
-    const processedList = diaryList.filter((item) => startDate <= item.date && item.date <= lastDate);
-    setData(processedList);
+  useEffect(() => {
+    if(diaryList.length >= 1) {
+      const startDate = new Date(curDate.getFullYear(), curDate.getMonth(), 1);
+      const lastDate = new Date(curDate.getFullYear(), curDate.getMonth() + 1, 0, 23, 59, 59);
+
+      const processedList = diaryList.filter((item) => startDate <= item.date && item.date <= lastDate);
+      setData(processedList);
+    }
   }, [diaryList, curDate]);
 
   const headText = `${curDate.getFullYear()}년 ${curDate.getMonth() + 1}월`;

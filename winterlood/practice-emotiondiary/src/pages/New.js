@@ -1,19 +1,15 @@
-import {useNavigate} from 'react-router-dom';
-
-import MyButton from '../components/MyButton';
-import MyHeader from '../components/MyHeader';
 import DiaryEditor from '../components/DiaryEditor';
+import { useEffect } from 'react';
 
 function New() {
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    const title = document.getElementsByTagName('title')[0];
+    title.innerHTML = '감정 일기장 - 새 일기'
+  })
 
   return (
     <>
-      <MyHeader
-        leftChild={<MyButton text={'< 뒤로가기'} onClick={() => navigate(-1)}/>}
-        headText={'새 일기 쓰기'}
-      />
       <DiaryEditor/>
     </>
   )
