@@ -1,43 +1,35 @@
-import {useState} from 'react';
+import { useState, useMemo } from "react";
 
-import ExpenseItem from "./ExpenseItem";
 import Card from "../UI/Card";
-import './Expenses.css'
+import "./Expenses.css";
 import ExpenseFilter from "./ExpenseFilter";
+import ExpensesList from "./ExpensesList";
+import ExpenseChart from "./ExpensesChart";
 
 function Expenses(props) {
-  const [filteredYear, setFilteredYear] = useState('2020');
+  const [filteredYear, setFilteredYear] = useState("2020");
 
   const filterChangeHandler = (selectedYear) => {
     setFilteredYear(selectedYear);
-  }
+  };
+
+  const filteredList = useMemo(() => {
+    return props.items.filter(
+      (item) => item.date.getFullYear() === parseInt(filteredYear)
+    ); // item.date.getFullYear() ===
+  }, [filteredYear]);
+
   return (
     <div>
       <Card classes="expenses">
-        <ExpenseFilter selected={filteredYear} onChangeFilter={filterChangeHandler} />
-        <p>Data for years 2019, 2020, & 2022 is hidden</p>
-        <ExpenseItem
-          title={props.items[0].title}
-          amount={props.items[0].amount}
-          date={props.items[0].date}
+        <ExpenseFilter
+          selected={filteredYear}
+          onChangeFilter={filterChangeHandler}
         />
-        <ExpenseItem
-          title={props.items[1].title}
-          amount={props.items[1].amount}
-          date={props.items[1].date}
-        />
-        <ExpenseItem
-          title={props.items[2].title}
-          amount={props.items[2].amount}
-          date={props.items[2].date}
-        />
-        <ExpenseItem
-          title={props.items[3].title}
-          amount={props.items[3].amount}
-          date={props.items[3].date}
-        />
+        <ExpenseChart expenses={filteredList}/>
+        <ExpensesList items={filteredList}/>
       </Card>
     </div>
-  )
+  );
 }
 export default Expenses;
