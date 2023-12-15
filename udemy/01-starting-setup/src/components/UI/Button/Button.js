@@ -1,7 +1,7 @@
 import React from 'react';
 // import styled from 'styled-components';
 
-import './Button.css';
+import styles from './Button.module.css';
 // const Button = styled.button`
   /* width: 100%;
   font: inherit;
@@ -30,9 +30,9 @@ import './Button.css';
 
 const Button = props => {
   return (
-    <Button type={props.type} className="button" onClick={props.onClick}>
+    <button type={props.type} className={styles.button} onClick={props.onClick}>
       {props.children}
-    </Button>
+    </button>
   );
 };
 
