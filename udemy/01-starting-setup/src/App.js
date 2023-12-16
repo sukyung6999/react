@@ -1,39 +1,55 @@
-import componentsImage from './assets/images/components.png';
-import stateImage from './assets/images/state.png';
-import eventsImage from './assets/images/events.png';
-import ConceptItem from './Components/Concept/ConceptItem';
-import Header from './Components/Header/Header';
+import { useState } from 'react';
 
-const concepts = [
-  {
-    title: 'Components',
-    image: componentsImage,
-    description:
-      'Components let you split the UI into independent, reusable pieces, and think about each piece in isolation. Components can receive data via props, and they can render dynamic output using JSX.',
-  },
-  {
-    title: 'State',
-    image: stateImage,
-    description:
-      'State is data that may change over time. As it changes, the UI should be updated to reflect the updated data. Each component can maintain its own state and multiple components can share state.',
-  },
-  {
-    title: 'Events',
-    image: eventsImage,
-    description:
-      'Event handlers are added via props to (built-in) components. You pass functions as values to such event handlers to control which functions gets executed for which event.',
-  },
-];
+import CalculateForm from './components/CalculateForm/CalculateForm';
+import CalculateResult from './components/CalculateResult/CalculateResult';
+import Header from './components/Header/Header';
 
 function App() {
+  const [userInput, setUserInput] = useState(null);
+  const calculateHandler = (userInput) => {
+    // Should be triggered when form is submitted
+    // You might not directly want to bind it to the submit event on the form though...
+
+    
+    // do something with yearlyData ...
+    setUserInput(userInput);
+  };
+
+  const yearlyData = []; // per-year results
+
+  if (userInput) {
+    let currentSavings = +userInput['current-savings']; // feel free to change the shape of this input object!
+    const yearlyContribution = +userInput['yearly-contribution']; // as mentioned: feel free to change the shape...
+    const expectedReturn = +userInput['expected-return'] / 100;
+    const duration = +userInput['duration'];
+  
+    // The below code calculates yearly results (total savings, interest etc)
+    for (let i = 0; i < duration; i++) {
+      const yearlyInterest = currentSavings * expectedReturn;
+      currentSavings += yearlyInterest + yearlyContribution;
+      yearlyData.push({
+        // feel free to change the shape of the data pushed to the array!
+        id: Math.random(),
+        year: i + 1,
+        yearlyInterest: yearlyInterest,
+        savingsEndOfYear: currentSavings,
+        yearlyContribution: yearlyContribution,
+      });
+    }
+  }
+
+
   return (
     <div>
       <Header/>
-      <ul id="concepts">
-        {
-          concepts.map((concept, idx) => <ConceptItem key={idx} {...concept}/>)
-        }
-      </ul>
+
+      <CalculateForm onCalculate={calculateHandler}/>
+      {/* Todo: Show below table conditionally (only once result data is available) */}
+      {/* Show fallback text if no data is available */}
+      {userInput ?
+      <CalculateResult data={yearlyData} initialInvestment={userInput['current-savings']}/>:
+      <p style={{'textAlign': 'center'}}>There is no data</p>
+      }
     </div>
   );
 }
