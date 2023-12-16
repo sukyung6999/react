@@ -1,6 +1,11 @@
+import { useState } from 'react';
+
 import logo from './assets/investment-calculator-logo.png';
+import CalculateForm from './components/CalculateForm/CalculateForm';
+import CalculateResult from './components/CalculateResult/CalculateResult';
 
 function App() {
+  const [data, setData] = useState([]);
   const calculateHandler = (userInput) => {
     // Should be triggered when form is submitted
     // You might not directly want to bind it to the submit event on the form though...
@@ -18,14 +23,15 @@ function App() {
       currentSavings += yearlyInterest + yearlyContribution;
       yearlyData.push({
         // feel free to change the shape of the data pushed to the array!
+        id: Math.random(),
         year: i + 1,
         yearlyInterest: yearlyInterest,
         savingsEndOfYear: currentSavings,
         yearlyContribution: yearlyContribution,
       });
     }
-
     // do something with yearlyData ...
+    setData(yearlyData);
   };
 
   return (
@@ -35,62 +41,13 @@ function App() {
         <h1>Investment Calculator</h1>
       </header>
 
-      <form className="form">
-        <div className="input-group">
-          <p>
-            <label htmlFor="current-savings">Current Savings ($)</label>
-            <input type="number" id="current-savings" />
-          </p>
-          <p>
-            <label htmlFor="yearly-contribution">Yearly Savings ($)</label>
-            <input type="number" id="yearly-contribution" />
-          </p>
-        </div>
-        <div className="input-group">
-          <p>
-            <label htmlFor="expected-return">
-              Expected Interest (%, per year)
-            </label>
-            <input type="number" id="expected-return" />
-          </p>
-          <p>
-            <label htmlFor="duration">Investment Duration (years)</label>
-            <input type="number" id="duration" />
-          </p>
-        </div>
-        <p className="actions">
-          <button type="reset" className="buttonAlt">
-            Reset
-          </button>
-          <button type="submit" className="button">
-            Calculate
-          </button>
-        </p>
-      </form>
-
+      <CalculateForm onCalculate={calculateHandler}/>
       {/* Todo: Show below table conditionally (only once result data is available) */}
       {/* Show fallback text if no data is available */}
-
-      <table className="result">
-        <thead>
-          <tr>
-            <th>Year</th>
-            <th>Total Savings</th>
-            <th>Interest (Year)</th>
-            <th>Total Interest</th>
-            <th>Invested Capital</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>YEAR NUMBER</td>
-            <td>TOTAL SAVINGS END OF YEAR</td>
-            <td>INTEREST GAINED IN YEAR</td>
-            <td>TOTAL INTEREST GAINED</td>
-            <td>TOTAL INVESTED CAPITAL</td>
-          </tr>
-        </tbody>
-      </table>
+      {data.length > 0 ?
+      <CalculateResult data={data}/>:
+      <p>There is no data</p>
+      }
     </div>
   );
 }
