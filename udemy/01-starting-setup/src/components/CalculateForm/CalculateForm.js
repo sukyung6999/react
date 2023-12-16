@@ -1,15 +1,19 @@
 import {useState} from 'react';
 
+import classes from './CalculateForm.module.css'
+
 function CalculateForm({
   onCalculate
 }) {
 
-  const [data, setData] = useState({
-    'current-savings': '',
-    'yearly-contribution': '',
-    'expected-return': '',
-    'duration': '',
-  });
+  const initialUserInput = {
+    'current-savings': 10000,
+    'yearly-contribution': 1200,
+    'expected-return': 7,
+    'duration': 10,
+  };
+
+  const [data, setData] = useState(initialUserInput);
 
   const inputChangeHandler = (event) => {
     setData((prev) => {
@@ -23,12 +27,7 @@ function CalculateForm({
   const resetHandler = (event) => {
     event.preventDefault();
 
-    setData({
-      'current-savings': '',
-      'yearly-contribution': '',
-      'expected-return': '',
-      'duration': '',
-    })
+    setData(initialUserInput)
   };
 
   const submitHandler = (event) => {
@@ -37,8 +36,8 @@ function CalculateForm({
     onCalculate(data);
   }
   return (
-    <form className="form" onSubmit={submitHandler}>
-      <div className="input-group">
+    <form className={classes.form} onSubmit={submitHandler}>
+      <div className={classes['input-group']}>
         <p>
           <label htmlFor="current-savings">Current Savings ($)</label>
           <input value={data['current-savings']} onChange={inputChangeHandler} type="number" id="current-savings" />
@@ -48,7 +47,7 @@ function CalculateForm({
           <input value={data['yearly-contribution']} onChange={inputChangeHandler} type="number" id="yearly-contribution" />
         </p>
       </div>
-      <div className="input-group">
+      <div className={classes['input-group']}>
         <p>
           <label htmlFor="expected-return">
             Expected Interest (%, per year)
@@ -60,11 +59,11 @@ function CalculateForm({
           <input value={data['duration']} onChange={inputChangeHandler} type="number" id="duration" />
         </p>
       </div>
-      <p className="actions">
-        <button type="reset" className="buttonAlt" onClick={resetHandler}>
+      <p className={classes.actions}>
+        <button type="reset" className={classes.buttonAlt} onClick={resetHandler}>
           Reset
         </button>
-        <button type="submit" className="button">
+        <button type="submit" className={classes.button}>
           Calculate
         </button>
       </p>

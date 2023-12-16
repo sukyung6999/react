@@ -1,8 +1,17 @@
+import classes from './CalculateResult.module.css'
+
 function CalculateResult({
-  data
+  data,
+  initialInvestment
 }) {
+  const formatter = new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  })
   return (
-    <table className="result">
+    <table className={classes.result}>
         <thead>
           <tr>
             <th>Year</th>
@@ -13,21 +22,14 @@ function CalculateResult({
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>YEAR NUMBER</td>
-            <td>TOTAL SAVINGS END OF YEAR</td>
-            <td>INTEREST GAINED IN YEAR</td>
-            <td>TOTAL INTEREST GAINED</td>
-            <td>TOTAL INVESTED CAPITAL</td>
-          </tr>
           {
             data && 
             data.map((item) => <tr key={item.id}>
               <td>{item.year}</td>
-              <td>{item.savingsEndOfYear}</td>
-              <td>{item.yearlyInterest}</td>
-              <td>{item.yearlyInterest * item.year}</td>
-              <td>{item.yearlyContribution}</td>
+              <td>{formatter.format(item.savingsEndOfYear)}</td>
+              <td>{formatter.format(item.yearlyInterest)}</td>
+              <td>{formatter.format(item.savingsEndOfYear - initialInvestment - (item.yearlyContribution * item.year))}</td>
+              <td>{formatter.format(item.savingsEndOfYear + item.yearlyContribution * item.year)}</td>
             </tr>)
           }
         </tbody>

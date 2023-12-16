@@ -1,22 +1,28 @@
 import { useState } from 'react';
 
-import logo from './assets/investment-calculator-logo.png';
 import CalculateForm from './components/CalculateForm/CalculateForm';
 import CalculateResult from './components/CalculateResult/CalculateResult';
+import Header from './components/Header/Header';
 
 function App() {
-  const [data, setData] = useState([]);
+  const [userInput, setUserInput] = useState(null);
   const calculateHandler = (userInput) => {
     // Should be triggered when form is submitted
     // You might not directly want to bind it to the submit event on the form though...
 
-    const yearlyData = []; // per-year results
+    
+    // do something with yearlyData ...
+    setUserInput(userInput);
+  };
 
+  const yearlyData = []; // per-year results
+
+  if (userInput) {
     let currentSavings = +userInput['current-savings']; // feel free to change the shape of this input object!
     const yearlyContribution = +userInput['yearly-contribution']; // as mentioned: feel free to change the shape...
     const expectedReturn = +userInput['expected-return'] / 100;
     const duration = +userInput['duration'];
-
+  
     // The below code calculates yearly results (total savings, interest etc)
     for (let i = 0; i < duration; i++) {
       const yearlyInterest = currentSavings * expectedReturn;
@@ -30,23 +36,19 @@ function App() {
         yearlyContribution: yearlyContribution,
       });
     }
-    // do something with yearlyData ...
-    setData(yearlyData);
-  };
+  }
+
 
   return (
     <div>
-      <header className="header">
-        <img src={logo} alt="logo" />
-        <h1>Investment Calculator</h1>
-      </header>
+      <Header/>
 
       <CalculateForm onCalculate={calculateHandler}/>
       {/* Todo: Show below table conditionally (only once result data is available) */}
       {/* Show fallback text if no data is available */}
-      {data.length > 0 ?
-      <CalculateResult data={data}/>:
-      <p>There is no data</p>
+      {userInput ?
+      <CalculateResult data={yearlyData} initialInvestment={userInput['current-savings']}/>:
+      <p style={{'textAlign': 'center'}}>There is no data</p>
       }
     </div>
   );
