@@ -1,0 +1,11 @@
+winterlood/.DS_Store
+.DS_Store
+udemy/01-starting-setup/node_modules
+.vscode/settings.json
+udemy/01-starting-setup/package-lock.json
+my-app/node_modules
+winterlood/package-example/node_modules
+winterlood/package-example/package-lock.json
+winterlood/practice-emotiondiary/package-lock.json
+winterlood/practicediary/package-lock.json
+winterlood/simplediary/package-lock.json
