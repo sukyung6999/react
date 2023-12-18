@@ -58,7 +58,7 @@ function AddUser({
       age: 0
     })
   }
-  return <div>
+  return <>
     {error && <ErrorModal title={error.title} text={error.text} errorHandler={errorHandler}/>}
     <Card className={classes.input}>
       <form onSubmit={addClickHandler}>
@@ -69,6 +69,6 @@ function AddUser({
         <Button type={'submit'}>Add User</Button>
       </form>
     </Card>
-  </div>
+  </>
 }
 export default AddUser;
