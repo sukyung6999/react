@@ -1,5 +1,5 @@
 # react
-이 저장소는 react를 아래 강의들을 학습한 내용들을 기록해둔 저장소입니다.
+이 저장소는 아래의 react 강의들을 학습한 내용들을 기록해둔 저장소입니다.
 
 - 강의 목록
 - ㄴ 처음 만난 리액트 : https://www.inflearn.com/course/%EC%B2%98%EC%9D%8C-%EB%A7%8C%EB%82%9C-%EB%A6%AC%EC%95%A1%ED%8A%B8/
